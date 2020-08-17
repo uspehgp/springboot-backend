@@ -2,9 +2,7 @@ package com.uspehgp.tasklist.springbootbackend.controller;
 
 import com.uspehgp.tasklist.springbootbackend.entity.Category;
 import com.uspehgp.tasklist.springbootbackend.repo.CategoryRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +22,9 @@ public class CategoryController {
         List<Category> list = categoryRepository.findAll();
         System.out.println("list"+ list);
         return list;
-
+    }
+    @PostMapping("/add")
+    public Category add(@RequestBody Category category){
+        return categoryRepository.save(category);
     }
 }
