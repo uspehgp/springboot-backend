@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/priority")
@@ -64,5 +65,21 @@ public class PriorityController {
 
 
         return ResponseEntity.ok(priorityRepository.save(priority));
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Priority> findById(@PathVariable Long id) {
+
+        Priority priority=null;
+
+        try{
+            priority = priorityRepository.findById(id).get();
+        }catch(NoSuchElementException e){
+            e.printStackTrace();
+            return new ResponseEntity("id= "+id+"not found", HttpStatus.NOT_ACCEPTABLE); //если объект не будет найден
+        }
+
+        return  ResponseEntity.ok(priority);
+
     }
 }
