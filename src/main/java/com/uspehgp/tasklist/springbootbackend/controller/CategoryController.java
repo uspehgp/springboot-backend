@@ -48,7 +48,7 @@ public class CategoryController {
     public ResponseEntity update(@RequestBody Category category){
 
         // проверка на обязательные параметры
-        if (category.getId() == null && category.getId() == 0) {
+        if (category.getId() == null || category.getId() == 0) {
             // id создается автоматически в БД (autoincrement), поэтому его передавать нужно только при обновлении, иначе может быть конфликт уникальности значения
             return new ResponseEntity("missed param: id", HttpStatus.NOT_ACCEPTABLE);
         }

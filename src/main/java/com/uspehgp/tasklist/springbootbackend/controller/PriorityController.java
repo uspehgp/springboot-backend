@@ -47,7 +47,7 @@ public class PriorityController {
     public ResponseEntity update(@RequestBody Priority priority){
 
         // проверка на обязательные параметры
-        if (priority.getId() == null && priority.getId() == 0) {
+        if (priority.getId() == null || priority.getId() == 0) {
             // id создается автоматически в БД (autoincrement), поэтому его передавать нужно только при обновлении, иначе может быть конфликт уникальности значения
             return new ResponseEntity("missed param: id", HttpStatus.NOT_ACCEPTABLE);
         }
