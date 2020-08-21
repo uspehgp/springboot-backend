@@ -2,6 +2,7 @@ package com.uspehgp.tasklist.springbootbackend.controller;
 
 import com.uspehgp.tasklist.springbootbackend.entity.Category;
 import com.uspehgp.tasklist.springbootbackend.repo.CategoryRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -74,6 +75,18 @@ public class CategoryController {
         }
 
         return  ResponseEntity.ok(category);
+
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        try {
+            categoryRepository.deleteById(id);
+        }catch(EmptyResultDataAccessException e) {
+            e.printStackTrace();
+            return new ResponseEntity("id: "+id+" not found", HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity(HttpStatus.OK);
 
     }
 
