@@ -20,13 +20,12 @@ public class CategoryController {
         this.categoryRepository = categoryRepository;
     }
 
-    @GetMapping("/test")
-    public List<Category> test() {
+    @GetMapping("/all")
+    public List<Category> findAll() {
 
-        List<Category> list = categoryRepository.findAll();
-        System.out.println("list"+ list);
-        return list;
+        return categoryRepository.findAllByOrderByTitleAsc();
     }
+
     @PostMapping("/add")
     public ResponseEntity<Category> add(@RequestBody Category category){
 
